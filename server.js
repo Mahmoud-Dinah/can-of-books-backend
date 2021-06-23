@@ -5,7 +5,9 @@ const PORT = process.env.PORT;
 const mongoose = require('mongoose');
 const cors = require('cors');
 const axios = require('axios'); // require the package
-const seedUserData = require('./models/user.model');
+const { seedUserData } = require('./models/user.model');
+app.use(express.json());
+
 const {
   getBooks,
   createBook,
@@ -43,7 +45,9 @@ app.post('/book', createBook);
 
 // app.put('/book/:book_idx', updateBook);
 
-// app.delete('/book/:book_idx', deleteBook);
+
+app.delete('/book/:book_idx', deleteBook);
+
 
 // seedUserData();
 app.listen(PORT); // kick start the express server to work
