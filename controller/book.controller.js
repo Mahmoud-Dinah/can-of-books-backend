@@ -1,15 +1,15 @@
 'use strict';
 
-const userModel   = require('../models/user.model');
+const userModel = require('../models/user.model');
 
-const getBooks = (request, response) => {
-  const { email } = request.query;
+const getBooks = (req, res) => {
+  const {email} = req.query;
 
-  userModel.find({ email: email }, (error, user) => {
+  userModel.findOne({ email: email}, (error, user) => {
     if (error) {
-      response.send(error.me);
+      res.send(error);
     } else {
-      response.json(user);
+      res.json(user);
     }
   });
 };
@@ -18,9 +18,10 @@ const getBooks = (request, response) => {
 
 const createBook = (request, response) => {
   console.log(request.body);
-  const { email, name} = request.body;
+  
+  const { email, name } = request.body;
 
-  userModel.findOne({ email: email }, (error, user) => {
+  userModel.findOne({ email, name,  }, (error, user) => {
     if (error) {
       response.send(error);
     } else {

@@ -13,6 +13,8 @@ const {
 
 app.use(cors());
 
+app.use(express.json());
+
 mongoose.connect(process.env.MANGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
