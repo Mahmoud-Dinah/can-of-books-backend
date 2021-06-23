@@ -11,6 +11,8 @@ app.use(express.json());
 const {
   getBooks,
   createBook,
+  updateBook,
+  deleteBook,
 } = require('./controller/book.controller');
 
 app.use(cors());
@@ -45,7 +47,7 @@ app.get('/books', getBooks);
 
 app.post('/book', createBook);
 
-// app.put('/book/:book_idx', updateBook);
+app.put('/book/:book_idx', updateBook);
 
 
 app.delete('/book/:book_idx', deleteBook);

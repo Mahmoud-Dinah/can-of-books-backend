@@ -1,8 +1,9 @@
 'use strict';
 
-const userModel = require('../models/user.model');
+const {userModel} = require('../models/user.model');
 
 const getBooks = (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const {email} = req.query;
 
   userModel.findOne({ email: email}, (error, user) => {
@@ -17,6 +18,7 @@ const getBooks = (req, res) => {
 
 
 const createBook = (request, response) => {
+  response.setHeader('Access-Control-Allow-Origin', '*');
   console.log(request.body);
 
 
@@ -40,6 +42,7 @@ const createBook = (request, response) => {
 };
 
 const updateBook = (request, response) => {
+  response.setHeader('Access-Control-Allow-Origin', '*');
   console.log(request.params);
   const bookIndex = request.params.book_idx;
   const { email, name, description, status } = request.body;
@@ -60,6 +63,7 @@ const updateBook = (request, response) => {
 };
 
 const deleteBook = (request, response) => {
+  response.setHeader('Access-Control-Allow-Origin', '*');
   console.log(request.params);
   const bookIndex = request.params.book_idx;
   const { email } = request.query;
@@ -78,4 +82,6 @@ const deleteBook = (request, response) => {
 module.exports = {
   getBooks,
   createBook,
+  deleteBook,
+  updateBook
 };
