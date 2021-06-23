@@ -18,16 +18,23 @@ const getBooks = (req, res) => {
 
 const createBook = (request, response) => {
   console.log(request.body);
-  
-  const { email, name } = request.body;
 
-  userModel.findOne({ email, name,  }, (error, user) => {
+
+  const { email, name, description, status } = request.body;
+
+  userModel.findOne({ email: email }, (error, userData) => {
+
     if (error) {
       response.send(error);
     } else {
-      user.books.push({ name: name });
-      user.save();
-      response.json(user);
+      userData.books.push({
+        name,
+        description,
+        status,
+      });
+      userData.save();
+      response.json(userData);
+
     }
   });
 };
@@ -35,13 +42,17 @@ const createBook = (request, response) => {
 const updateBook = (request, response) => {
   console.log(request.params);
   const bookIndex = request.params.book_idx;
-  const { userEmail, bookName } = request.body;
+  const { email, name, description, status } = request.body;
 
-  userModel.findOne({ email: userEmail }, (error, userData) => {
+  userModel.findOne({ email: email }, (error, userData) => {
     if (error) {
       response.send(error);
     } else {
-      userData.books.splice(bookIndex, 1, { name: bookName });
+      userData.books.splice(bookIndex, 1, {
+        name,
+        description,
+        status,
+      });
       userData.save();
       response.send(userData);
     }
@@ -67,5 +78,4 @@ const deleteBook = (request, response) => {
 module.exports = {
   getBooks,
   createBook,
- 
 };
